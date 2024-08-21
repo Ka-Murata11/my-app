@@ -1,21 +1,13 @@
-import { Task } from "@mui/icons-material";
 import EditTaskForm from "@/components/EditTaskForm/EditTaskForm";
+import { TodoTask } from "@/models/task";
 
 interface Params {
     params: { id:string };
 }
 
-interface Task {
-    id: string;
-    title: string;
-    description: string;
-    dueDate: string;
-    isCompleted: boolean;
-}
-
 const EditTaskPage = ({ params }: Params) => {
     // const id = params.id;
-    const task: Task = {
+    const task: TodoTask = {
         id: "1",
         title: "勉強",
         description: "プログラミングの練習",
@@ -24,9 +16,9 @@ const EditTaskPage = ({ params }: Params) => {
     }
 
     return (
-        <div className="flex flex-col justify-center py-20">
+        <div className="flex flex-col items-center py-20">
             <h2 className="text-center text-2xl font-bold">Edit Task</h2>
-            <EditTaskForm />
+            <EditTaskForm  task={task}/>
         </div>
     )
 }

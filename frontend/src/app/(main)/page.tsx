@@ -15,13 +15,11 @@ const getAllTasks = async (): Promise<Task[]> => {
   const response = await fetch("http://backend-container:8080/tasks", {
     cache: "no-store",
   });
-  console.log(response)
   // if(response.status !== 200) {
   //   throw new Error();
   // }
 
   const data = await response.json();
-  console.log(data)
   return data as Task[];
 }
 
