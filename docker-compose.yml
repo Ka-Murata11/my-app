@@ -6,6 +6,8 @@ services:
       context: ./backend
     ports:
       - "8080:8080"
+    volumes:
+    - ../:/workspace
     container_name: backend-container
     networks:
       - mynetwork
@@ -17,6 +19,8 @@ services:
       - "3000:3000"
     depends_on:
       - backend
+    volumes:
+      - ../:/workspace
     container_name: frontend-container
     networks:
       - mynetwork
