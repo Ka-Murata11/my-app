@@ -1,13 +1,13 @@
 FROM node:18
 
-WORKDIR /app
+WORKDIR /workspace/frontend
 
-COPY package*.json ./
+# COPY package*.json ./
 
-RUN npm install
+# RUN npm install
 
-COPY . .
+# COPY . .
 
-RUN npm run build 
-EXPOSE 3000
-CMD ["npm", "start"]
+# RUN npm run build 
+# EXPOSE 3000
+# CMD ["npm", "start"]

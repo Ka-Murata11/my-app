@@ -2,29 +2,26 @@ version: '3.8'
 
 services:
   backend:
+    container_name: backend
     build:
       context: ./backend
+    tty: true
+    volumes:
+    - ./backend:/workspace/backend
     ports:
       - "8080:8080"
-    volumes:
-    - ../:/workspace
-    container_name: backend-container
-    networks:
-      - mynetwork
+    command: bash -c "go build -o /main && /main"
 
   frontend:
+    container_name: frontend
     build:
       context: ./frontend
+    tty: true
+    volumes:
+      - ./frontend:/workspace/frontend
     ports:
       - "3000:3000"
     depends_on:
       - backend
-    volumes:
-      - ../:/workspace
-    container_name: frontend-container
-    networks:
-      - mynetwork
+    command: bash -c "npm install && npm run build && npm start"
 
-networks:
-  mynetwork:
-    driver: bridge

@@ -12,7 +12,7 @@ interface Task {
 }
 
 const getAllTasks = async (): Promise<Task[]> => {
-  const response = await fetch("http://backend-container:8080/tasks", {
+  const response = await fetch("http://backend:8080/tasks", {
     cache: "no-store",
   });
   // if(response.status !== 200) {
