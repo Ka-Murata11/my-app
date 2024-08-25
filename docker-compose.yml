@@ -25,3 +25,17 @@ services:
       - backend
     command: bash -c "npm install && npm run build && npm start"
 
+  dev-postgres:
+    container_name: pgdb
+    image: postgres:15.1-alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - ./pgdb:/docker-entrypoint-initdb.d/:ro
+    environment:
+      POSTGRES_USER: udemy
+      POSTGRES_PASSWORD: udemy
+      POSTGRES_DB: udemy
+    restart: always
+
+

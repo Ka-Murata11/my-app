@@ -5,5 +5,5 @@
         "../../.devcontainer/docker-compose.yml"
     ],
     "service": "backend",
-    "workspaceFolder": "/workspace/backend"
+    "workspaceFolder": "/workspace"
 }

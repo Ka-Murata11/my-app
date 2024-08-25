@@ -1,29 +1,24 @@
 package main
 
 import (
-	"encoding/json"
-	"net/http"
+	"app/controller"
+	"app/db"
+	"app/repository"
+	"app/router"
+	"app/usecase"
+	"app/validator"
 )
 
-type Task struct {
-	ID          string `json:"id"`
-	Title       string `json:"title"`
-	Description string `json:"description"`
-	DueDate     string `json:"dueDate"`
-	IsCompleted bool   `json:"isCompleted"`
-}
-
-var tasks = []Task{
-	{ID: "1", Title: "Task 1", Description: "Description 1", DueDate: "2022-01-01", IsCompleted: false},
-	{ID: "2", Title: "Task 2", Description: "Description 2", DueDate: "2022-01-02", IsCompleted: true},
-}
-
-func getTasks(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(tasks)
-}
-
 func main() {
-	http.HandleFunc("/tasks", getTasks)
-	http.ListenAndServe(":8080", nil)
+	db := db.NewDB()
+	userValidator := validator.NewUserValidator()
+	taskValidator := validator.NewTaskValidator()
+	userRepository := repository.NewUserRepository(db)
+	taskRepository := repository.NewTaskRepository(db)
+	userUsecase := usecase.NewUserUsecase(userRepository, userValidator)
+	taskUsecase := usecase.NewTaskUseCase(taskRepository, taskValidator)
+	userController := controller.NewUserController(userUsecase)
+	taskController := controller.NewTaskController(taskUsecase)
+	e := router.NewRouter(userController, taskController)
+	e.Logger.Fatal(e.Start(":8080"))
 }
